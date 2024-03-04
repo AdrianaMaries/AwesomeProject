@@ -5,8 +5,11 @@
  * @format
  */
 
-import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React from 'react';
+import {
+  NavigationContainer,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
 import ProductsScreen from './screens/ProductsScreen';
@@ -14,8 +17,24 @@ import CartScreen from './screens/CartScreen';
 import ProductDetails from './screens/ProductDetails';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+export type TabNavigationParamList = {
+  Home: undefined;
+  Products: undefined;
+  Cart: undefined;
+};
+
+export type RootStackParamList = {
+  BottomTabs: NavigatorScreenParams<TabNavigationParamList>;
+  ProductDetails: {
+    productTitle: string;
+    productDescription: string;
+    productPrice: number;
+    productImage: string;
+  };
+};
+
+const Tab = createBottomTabNavigator<TabNavigationParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function TabNavigation() {
   return (
@@ -32,13 +51,19 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
+          name="BottomTabs"
           component={TabNavigation}
           options={{
             headerShown: false,
           }}
         />
-        <Stack.Screen name="ProductDetails" component={ProductDetails} />
+        <Stack.Screen
+          name="ProductDetails"
+          component={ProductDetails}
+          options={{
+            headerBackTitle: 'Home',
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

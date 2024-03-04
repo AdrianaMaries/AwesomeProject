@@ -1,4 +1,5 @@
-import * as React from 'react';
+import {CompositeScreenProps} from '@react-navigation/native';
+import React from 'react';
 import {
   Text,
   View,
@@ -6,8 +7,12 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  GestureResponderEvent,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {RootStackParamList, TabNavigationParamList} from '../App';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 const products = [
   {
@@ -57,7 +62,12 @@ const products = [
   },
 ];
 
-export default function ProductsScreen({navigation}: any) {
+export type ProductsScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabNavigationParamList, 'Products'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+export default function ProductsScreen({navigation}: ProductsScreenProps) {
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -73,7 +83,7 @@ export default function ProductsScreen({navigation}: any) {
                   productTitle: product.title,
                   productDescription: product.description,
                   productPrice: product.price,
-                  prouctImage: product.image,
+                  productImage: product.image,
                 });
               }}
             />
@@ -84,7 +94,21 @@ export default function ProductsScreen({navigation}: any) {
   );
 }
 
-const CardView = ({imageSource, title, description, price, onPress}: any) => {
+interface CardViewProps {
+  imageSource: string;
+  title: string;
+  description: string;
+  price: number;
+  onPress: (event: GestureResponderEvent) => void;
+}
+
+const CardView = ({
+  imageSource,
+  title,
+  description,
+  price,
+  onPress,
+}: CardViewProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Image source={{uri: imageSource}} style={styles.cardImage} />

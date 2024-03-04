@@ -1,3 +1,4 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import * as React from 'react';
 import {
   Text,
@@ -8,16 +9,22 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {RootStackParamList} from '../App';
 
-export default function ProductDetails({route}: any) {
-  const {productTitle, productDescription, productPrice, prouctImage} =
+export type ProductDetailsProps = NativeStackScreenProps<
+  RootStackParamList,
+  'ProductDetails'
+>;
+
+export default function ProductDetails({route}: ProductDetailsProps) {
+  const {productTitle, productDescription, productPrice, productImage} =
     route.params;
   return (
     <ScrollView>
       <View style={styles.container}>
         <ImageBackground
           source={{
-            uri: prouctImage,
+            uri: productImage,
           }}
           style={styles.productImage}
         />
