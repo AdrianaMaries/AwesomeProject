@@ -5,7 +5,7 @@
  * @format
  */
 
-import * as React from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from './screens/HomeScreen';
@@ -32,7 +32,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
+          name="BottomTabs"
           component={TabNavigation}
           options={{
             headerShown: false,

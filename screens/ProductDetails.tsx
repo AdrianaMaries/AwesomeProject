@@ -10,14 +10,14 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 export default function ProductDetails({route}: any) {
-  const {productTitle, productDescription, productPrice, prouctImage} =
+  const {productTitle, productDescription, productPrice, productImage} =
     route.params;
   return (
     <ScrollView>
       <View style={styles.container}>
         <ImageBackground
           source={{
-            uri: prouctImage,
+            uri: productImage,
           }}
           style={styles.productImage}
         />

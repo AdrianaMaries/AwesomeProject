@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  GestureResponderEvent,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
@@ -73,7 +74,7 @@ export default function ProductsScreen({navigation}: any) {
                   productTitle: product.title,
                   productDescription: product.description,
                   productPrice: product.price,
-                  prouctImage: product.image,
+                  productImage: product.image,
                 });
               }}
             />
@@ -84,7 +85,21 @@ export default function ProductsScreen({navigation}: any) {
   );
 }
 
-const CardView = ({imageSource, title, description, price, onPress}: any) => {
+interface CardViewProps {
+  imageSource: string;
+  title: string;
+  description: string;
+  price: number;
+  onPress: (event: GestureResponderEvent) => void;
+}
+
+const CardView = ({
+  imageSource,
+  title,
+  description,
+  price,
+  onPress,
+}: CardViewProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Image source={{uri: imageSource}} style={styles.cardImage} />
