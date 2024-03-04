@@ -1,3 +1,4 @@
+import {CompositeScreenProps} from '@react-navigation/native';
 import React from 'react';
 import {
   Text,
@@ -9,6 +10,9 @@ import {
   GestureResponderEvent,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {RootStackParamList, TabNavigationParamList} from '../App';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 const products = [
   {
@@ -58,7 +62,12 @@ const products = [
   },
 ];
 
-export default function ProductsScreen({navigation}: any) {
+export type ProductsScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabNavigationParamList, 'Products'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+export default function ProductsScreen({navigation}: ProductsScreenProps) {
   return (
     <ScrollView>
       <View style={styles.container}>

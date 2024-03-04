@@ -1,3 +1,4 @@
+import {CompositeScreenProps} from '@react-navigation/native';
 import type {PropsWithChildren} from 'react';
 import React from 'react';
 import {
@@ -13,6 +14,9 @@ import {
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {RootStackParamList, TabNavigationParamList} from '../App';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 const image = {
   uri: 'https://t4.ftcdn.net/jpg/02/25/62/33/360_F_225623331_iICi8zkkePrkyIZgW6wtjfLNOOXO2kya.jpg',
@@ -48,7 +52,12 @@ function Section({children, title}: SectionProps): React.JSX.Element {
   );
 }
 
-export default function HomeScreen({navigation}: any) {
+export type HomeScreenProps = CompositeScreenProps<
+  BottomTabScreenProps<TabNavigationParamList, 'Home'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
+
+export default function HomeScreen({navigation}: HomeScreenProps) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.black : Colors.white,
